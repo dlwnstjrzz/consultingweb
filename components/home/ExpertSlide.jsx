@@ -50,14 +50,26 @@ export default function ExpertSlide() {
   return (
     <section className="bg-white py-24 flex flex-col items-center justify-center overflow-hidden">
       
-      {/* Section Header */}
-      <div className="w-full max-w-6xl px-4 md:px-0 mb-12 flex items-center justify-between">
+      {/* Section Header - Slide Up + Scale */}
+      <motion.div 
+        className="w-full max-w-6xl px-4 md:px-0 mb-12 flex items-center justify-between"
+        initial={{ opacity: 0, y: 60, scale: 0.9 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <h2 className="text-4xl font-bold tracking-tight text-black font-sans">OUR EXPERTS</h2>
         <div className="h-[2px] w-24 bg-black"></div>
-      </div>
+      </motion.div>
 
-      {/* Main Card Container - Dark Mode */}
-      <div className="relative w-full max-w-6xl h-[600px] bg-[#111] shadow-2xl shadow-black/50 overflow-hidden rounded-sm border border-black/10">
+      {/* Main Card Container - Slide from Bottom with Rotation */}
+      <motion.div 
+        className="relative w-full max-w-6xl h-[600px] bg-[#111] shadow-2xl shadow-black/50 overflow-hidden rounded-sm border border-black/10"
+        initial={{ opacity: 0, y: 100, rotate: -2 }}
+        whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+      >
 
         <AnimatePresence mode="popLayout">
           {experts.map((expert, index) => (
@@ -150,7 +162,7 @@ export default function ExpertSlide() {
           ))}
         </AnimatePresence>
 
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -66,57 +66,97 @@ export default function StatsBoard() {
          
          {/* Building Image - Right Side Only (Reduced Width) */}
          <div className="absolute right-0 top-0 bottom-0 w-2/5 z-0 hidden lg:block">
-            <img 
+            <motion.img 
                src="/building2.avif" 
                alt="Background" 
                className="w-full h-full object-cover object-right"
+               initial={{ opacity: 0, x: 100 }}
+               whileInView={{ opacity: 1, x: 0 }}
+               viewport={{ once: true }}
+               transition={{ duration: 1.2, ease: "easeOut" }}
             />
          </div>
 
          <div className="relative z-10 pl-8 sm:pl-12 lg:pl-16">
             
-            {/* Headline */}
-            <div className="mb-16 max-w-2xl">
-               <motion.h2 
-                 initial={{ opacity: 0, y: 30 }}
-                 whileInView={{ opacity: 1, y: 0 }}
-                 viewport={{ once: true }}
-                 transition={{ duration: 0.8 }}
-                 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-gray-900 leading-tight"
-               >
+            {/* Headline - Parallax Effect */}
+            <motion.div 
+              className="mb-16 max-w-2xl"
+              initial={{ opacity: 0, y: 80 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ 
+                duration: 1, 
+                ease: [0.25, 0.46, 0.45, 0.94] // Custom easing
+              }}
+            >
+               <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-gray-900 leading-tight">
                  The beginning of <br />
                  the FnSolution <br />
                  evolution.
-               </motion.h2>
-            </div>
+               </h2>
+            </motion.div>
 
-            {/* Stacked Stats */}
+            {/* Stacked Stats with Wave/Stagger Effect */}
             <div className="flex flex-col space-y-6">
                {stats.map((stat, index) => (
-                 <div key={index} className="flex items-baseline">
-                    <motion.div 
-                       initial={{ opacity: 0, x: -50 }}
-                       whileInView={{ opacity: 1, x: 0 }}
-                       viewport={{ once: true }}
-                       transition={{ duration: 0.6, delay: index * 0.2 }}
-                       className="flex items-baseline"
-                    >
-                       {/* Huge Number */}
-                       <span className="text-7xl md:text-8xl font-black text-gray-900 tracking-tighter leading-none">
+                 <motion.div 
+                   key={index} 
+                   className="flex items-baseline"
+                   initial={{ opacity: 0, x: -100, rotate: -3 }}
+                   whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+                   viewport={{ once: true, margin: "-100px" }}
+                   transition={{ 
+                     duration: 0.8, 
+                     delay: index * 0.15,
+                     type: "spring",
+                     stiffness: 100,
+                     damping: 15
+                   }}
+                   whileHover={{ 
+                     scale: 1.05, 
+                     x: 10,
+                     transition: { duration: 0.3 }
+                   }}
+                 >
+                    <div className="flex items-baseline">
+                       {/* Huge Number with Bounce */}
+                       <motion.span 
+                         className="text-7xl md:text-8xl font-black text-gray-900 tracking-tighter leading-none"
+                         initial={{ scale: 0.5, opacity: 0 }}
+                         whileInView={{ scale: 1, opacity: 1 }}
+                         viewport={{ once: true }}
+                         transition={{ 
+                           duration: 0.6, 
+                           delay: index * 0.15 + 0.2,
+                           type: "spring",
+                           stiffness: 200,
+                           damping: 10
+                         }}
+                       >
                           <Counter value={stat.number} suffix="" />
-                       </span>
+                       </motion.span>
                        
-                       {/* Plus Sign & Label group */}
-                       <div className="ml-6 flex items-baseline">
+                       {/* Plus Sign & Label group with Slide */}
+                       <motion.div 
+                         className="ml-6 flex items-baseline"
+                         initial={{ opacity: 0, y: 20 }}
+                         whileInView={{ opacity: 1, y: 0 }}
+                         viewport={{ once: true }}
+                         transition={{ 
+                           duration: 0.5, 
+                           delay: index * 0.15 + 0.4 
+                         }}
+                       >
                           <span className="text-4xl md:text-5xl font-black text-black mr-4">
                              {stat.suffix}
                           </span>
                           <span className="text-lg md:text-xl text-gray-500 font-medium">
                              {stat.label}
                           </span>
-                       </div>
-                    </motion.div>
-                 </div>
+                       </motion.div>
+                    </div>
+                 </motion.div>
                ))}
             </div>
 
