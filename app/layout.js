@@ -2,7 +2,7 @@ import "./globals.css";
 import MainLayout from "@/components/layout/MainLayout";
 
 export const metadata = {
-  title: "MEGAINFO Consulting",
+  title: "fnsolution Consulting",
   description: "Professional Consulting Services",
 };
 
