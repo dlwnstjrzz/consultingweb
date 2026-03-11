@@ -163,8 +163,6 @@ export default function MainLayout({ children }) {
              {/* Left: Info & Copyright */}
              <div className="space-y-4">
                 <div className="flex gap-4 text-xs font-bold text-gray-300">
-                    <Link href="#" className="hover:text-white transition-colors">개인정보처리방침</Link>
-                    <span className="text-white/20">|</span>
                     <Link href="#" className="hover:text-white transition-colors">이메일무단수집거부</Link>
                 </div>
 
